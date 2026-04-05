@@ -1,0 +1,95 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "profile": {
+          ".validate": "newData.hasChildren(['name','email','city','destination','budget','travelStyle','interests','bio','sosContact','homeAirport','points','level'])"
+        },
+        "timeline": {
+          "$memoryId": {
+            ".validate": "newData.hasChildren(['id','title','location','note','date'])"
+          }
+        },
+        "notifications": {
+          "$notificationId": {
+            ".validate": "newData.hasChildren(['id','title','body','time'])"
+          }
+        },
+        "directMessages": {
+          "$messageId": {
+            ".validate": "newData.hasChildren(['id','author','text','time'])"
+          }
+        },
+        "reviews": {
+          "$reviewId": {
+            ".validate": "newData.hasChildren(['id','placeId','author','rating','text'])"
+          }
+        },
+        "trips": {
+          "$tripId": {
+            ".validate": "newData.hasChildren(['id','title','destination','status','budget','days'])"
+          }
+        }
+      }
+    },
+    "publicProfiles": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['uid','name','city','destination','budget','travelStyle','interests','bio','level'])"
+      }
+    },
+    "community": {
+      ".read": "auth != null",
+      "groupChat": {
+        "$messageId": {
+          ".write": "auth != null",
+          ".validate": "newData.hasChildren(['id','author','text','time'])"
+        }
+      }
+    },
+    "alerts": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['name','destination','contact','createdAt'])"
+      }
+    },
+    "mobileUsers": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "blendState": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && auth.uid === $uid"
+        },
+        "emergencyContacts": {
+          "$contactId": {
+            ".read": "auth != null && auth.uid === $uid",
+            ".write": "auth != null && auth.uid === $uid"
+          }
+        },
+        "notes": {
+          "$noteId": {
+            ".read": "auth != null && auth.uid === $uid",
+            ".write": "auth != null && auth.uid === $uid"
+          }
+        },
+        "aiChats": {
+          "$messageId": {
+            ".read": "auth != null && auth.uid === $uid",
+            ".write": "auth != null && auth.uid === $uid"
+          }
+        },
+        "sos": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && auth.uid === $uid"
+        }
+      }
+    },
+    ".read": false,
+    ".write": false
+  }
+}
